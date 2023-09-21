@@ -1,0 +1,45 @@
+function addToCart(productName, price) {
+    // Add item to cart
+    cart.push({ productName, price });
+    total += price;
+    updateCart();
+
+    // Save cart and total in cookies
+    document.cookie = `cart=${JSON.stringify(cart)}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
+    document.cookie = `total=${total}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
+}
+
+function updateCart() {
+    const cartList = document.getElementById("cart");
+    const totalElement = document.getElementById("total");
+
+    cartList.innerHTML = "";
+    cart.forEach(item => {
+        const li = document.createElement("li");
+        li.innerText = `${item.productName} - $${item.price.toFixed(2)}`;
+        cartList.appendChild(li);
+    });
+
+    totalElement.innerText = total.toFixed(2);
+
+    // Update cookies with current cart and total
+    document.cookie = `cart=${JSON.stringify(cart)}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
+    document.cookie = `total=${total}; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/`;
+}
+
+// Function to retrieve cart and total from cookies on page load
+function retrieveCartFromCookies() {
+    const cookies = document.cookie.split("; ");
+    cookies.forEach(cookie => {
+        const parts = cookie.split("=");
+        if (parts[0] === "cart") {
+            cart = JSON.parse(decodeURIComponent(parts[1]));
+        } else if (parts[0] === "total") {
+            total = parseFloat(parts[1]);
+        }
+    });
+}
+
+// Call the function to retrieve cart from cookies on page load
+retrieveCartFromCookies();
+updateCart();  // Update the cart display
