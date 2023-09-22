@@ -135,7 +135,11 @@ body {
 
         // Call the function to retrieve cart data from cookies on page load
         retrieveCartFromCookies();
+         function remove_cart(){
+           cart = [];
+           total = 0;
+         }
     </script>
-
+<p><button onclick="remove_cart()" type="button">remove from basket</button></p>
 </body>
 </html>
