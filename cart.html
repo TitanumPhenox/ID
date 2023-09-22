@@ -132,13 +132,14 @@ body {
 
             updateCart();
         }
-
+        function remove_cart(){
+           cart.push({,});
+           total = 0;
+           updateCart();
+         }
         // Call the function to retrieve cart data from cookies on page load
         retrieveCartFromCookies();
-         function remove_cart(){
-           cart = [];
-           total = 0;
-         }
+         
     </script>
 <button onclick="remove_cart()">Clear Cart</button>
 </body>
