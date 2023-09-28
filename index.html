@@ -1,15 +1,95 @@
-<!-- Add Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
-<script>
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
-    };
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication Example</title>
 
-    firebase.initializeApp(firebaseConfig);
+    <!-- Add Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAdDELV5kKKj_EDIksEOufhgFTbYT8Kqcg",
+            authDomain: "index-b940c.firebaseapp.com",
+            projectId: "index-b940c",
+            storageBucket: "index-b940c.appspot.com",
+            messagingSenderId: "867598296288",
+            appId: "1:867598296288:web:e2ed2ecb27b10c036d1c85",
+            measurementId: "G-XEH5DS0WX8"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+    <!-- Add your custom CSS and JavaScript files here -->
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Sign Up</h1>
+<form onsubmit="signUp(event)">
+    <label for="signupEmail">Email:</label>
+    <input type="email" id="signupEmail" required><br>
+
+    <label for="signupPassword">Password:</label>
+    <input type="password" id="signupPassword" required><br>
+
+    <input type="submit" value="Sign Up">
+</form>
+
+<h1>Login</h1>
+<form onsubmit="logIn(event)">
+    <label for="loginEmail">Email:</label>
+    <input type="email" id="loginEmail" required><br>
+
+    <label for="loginPassword">Password:</label>
+    <input type="password" id="loginPassword" required><br>
+
+    <input type="submit" value="Login">
+</form>
+
+<script>
+    // Sign Up
+    function signUp(event) {
+        event.preventDefault();
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                alert('Sign up successful!');
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }
+
+    // Log In
+    function logIn(event) {
+        event.preventDefault();
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                alert('Login successful!');
+            })
+            .catch((error) => {
+                alert(error.message);
+            });
+    }
 </script>
+
+</body>
+</html>
