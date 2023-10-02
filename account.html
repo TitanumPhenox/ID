@@ -17,19 +17,34 @@
     <script>
         var lock = new Auth0Lock('WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy', 'dev-yix8d58xfz2w0brw.us.auth0.com');
 
-        // Function to set authentication token in localStorage
         function setAuthToken(token) {
             localStorage.setItem('authToken', token);
         }
 
-        // Function to get authentication token from localStorage
         function getAuthToken() {
             return localStorage.getItem('authToken');
         }
 
-        // Function to clear authentication token from localStorage
         function clearAuthToken() {
             localStorage.removeItem('authToken');
+        }
+
+        function handleAuthentication() {
+            lock.on("authenticated", function(authResult) {
+                setAuthToken(authResult.idToken);
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('signup').style.display = 'none';
+                document.getElementById('logout').style.display = 'block';
+            });
+        }
+
+        function checkLoggedIn() {
+            var authToken = getAuthToken();
+            if (authToken) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('signup').style.display = 'none';
+                document.getElementById('logout').style.display = 'block';
+            }
         }
 
         document.getElementById('login').addEventListener('click', function() {
@@ -43,34 +58,16 @@
         });
 
         document.getElementById('logout').addEventListener('click', function() {
-            clearAuthToken(); // Clear the authentication token
+            console.log('Logout button clicked');
+            clearAuthToken();
             lock.logout({
-                returnTo: 'https://m-t-curran.github.io/ID/account.html' // URL to redirect after logout
+                returnTo: 'https://m-t-curran.github.io/ID/account.html',
+                client_id: 'WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy' // Replace with your Auth0 client ID
             });
         });
 
-        // Function to handle authentication
-        function handleAuthentication() {
-            lock.on("authenticated", function(authResult) {
-                setAuthToken(authResult.idToken); // Set the authentication token
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('signup').style.display = 'none';
-                document.getElementById('logout').style.display = 'block';
-            });
-        }
-
-        // Check if user is already logged in (token exists in localStorage)
-        function checkLoggedIn() {
-            var authToken = getAuthToken();
-            if (authToken) {
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('signup').style.display = 'none';
-                document.getElementById('logout').style.display = 'block';
-            }
-        }
-
         handleAuthentication();
-        checkLoggedIn(); // Call checkLoggedIn when the page loads
+        checkLoggedIn();
     </script>
 
 </body>
