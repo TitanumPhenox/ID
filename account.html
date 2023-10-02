@@ -3,88 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Authentication Example</title>
+    <title>Auth0 Login and Signup Example</title>
+    <script src="https://cdn.auth0.com/js/lock/11.32/lock.min.js"></script>
 </head>
 <body>
 
-<?php
-session_start();
+    <h1>Welcome to our Website</h1>
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['signup'])) {
-        $username = $_POST['username'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $email = $_POST['email'];
+    <button id="login">Log In</button>
+    <button id="signup">Sign Up</button>
 
-        // Database connection
-        $conn = new mysqli("localhost", "username", "password", "database_name");
+    <script>
+        var lock = new Auth0Lock('YOUR_CLIENT_ID', 'YOUR_AUTH0_DOMAIN');
 
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
+        document.getElementById('login').addEventListener('click', function() {
+            lock.show();
+        });
 
-        $stmt = $conn->prepare("INSERT INTO users (username, password, email) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $password, $email);
-        $stmt->execute();
-        $stmt->close();
-        $conn->close();
-
-        echo "<p>Sign up successful! Please <a href='#login'>login</a>.</p>";
-    } elseif (isset($_POST['login'])) {
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        // Database connection
-        $conn = new mysqli("localhost", "username", "password", "database_name");
-
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
-
-        $stmt = $conn->prepare("SELECT password FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $stmt->bind_result($hashed_password);
-        $stmt->fetch();
-
-        if (password_verify($password, $hashed_password)) {
-            $_SESSION['username'] = $username;
-            header("Location: profile.php");
-            exit();
-        } else {
-            echo "<p>Invalid username or password.</p>";
-        }
-
-        $stmt->close();
-        $conn->close();
-    }
-}
-?>
-
-<h1 id="signup">Sign Up</h1>
-<form action="#signup" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required><br>
-
-    <input type="submit" name="signup" value="Sign Up">
-</form>
-
-<h1 id="login">Login</h1>
-<form action="#login" method="post">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required><br>
-
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required><br>
-
-    <input type="submit" name="login" value="Login">
-</form>
+        document.getElementById('signup').addEventListener('click', function() {
+            lock.show({
+                initialScreen: 'signUp'
+            });
+        });
+    </script>
 
 </body>
 </html>
