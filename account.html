@@ -17,6 +17,34 @@
     <script>
         var lock = new Auth0Lock('WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy', 'dev-yix8d58xfz2w0brw.us.auth0.com');
 
+        // Function to set a cookie
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        // Function to get a cookie
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Function to erase a cookie
+        function eraseCookie(name) {
+            document.cookie = name + '=; Max-Age=-99999999;';
+        }
+
         document.getElementById('login').addEventListener('click', function() {
             lock.show();
         });
@@ -28,6 +56,7 @@
         });
 
         document.getElementById('logout').addEventListener('click', function() {
+            eraseCookie('authToken'); // Erase the cookie
             lock.logout({
                 returnTo: 'https://m-t-curran.github.io/ID/account.html' // URL to redirect after logout
             });
@@ -36,14 +65,25 @@
         // Function to handle authentication
         function handleAuthentication() {
             lock.on("authenticated", function(authResult) {
-                // Perform any additional actions after authentication here
+                setCookie('authToken', authResult.idToken, 1); // Set the cookie with the authentication token
                 document.getElementById('login').style.display = 'none';
                 document.getElementById('signup').style.display = 'none';
                 document.getElementById('logout').style.display = 'block';
             });
         }
 
+        // Check if user is already logged in (cookie exists)
+        function checkLoggedIn() {
+            var authToken = getCookie('authToken');
+            if (authToken) {
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('signup').style.display = 'none';
+                document.getElementById('logout').style.display = 'block';
+            }
+        }
+
         handleAuthentication();
+        checkLoggedIn();
     </script>
 
 </body>
