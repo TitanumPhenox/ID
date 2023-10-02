@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auth0 Login and Signup Example</title>
+    <title>Auth0 Login, Signup, and Logout Example</title>
     <script src="https://cdn.auth0.com/js/lock/11.32/lock.min.js"></script>
 </head>
 <body>
@@ -12,6 +12,7 @@
 
     <button id="login">Log In</button>
     <button id="signup">Sign Up</button>
+    <button id="logout" style="display:none;">Log Out</button>
 
     <script>
         var lock = new Auth0Lock('WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy', 'dev-yix8d58xfz2w0brw.us.auth0.com');
@@ -25,6 +26,24 @@
                 initialScreen: 'signUp'
             });
         });
+
+        document.getElementById('logout').addEventListener('click', function() {
+            lock.logout({
+                returnTo: 'https://m-t-curran.github.io/ID/account.html' // URL to redirect after logout
+            });
+        });
+
+        // Function to handle authentication
+        function handleAuthentication() {
+            lock.on("authenticated", function(authResult) {
+                // Perform any additional actions after authentication here
+                document.getElementById('login').style.display = 'none';
+                document.getElementById('signup').style.display = 'none';
+                document.getElementById('logout').style.display = 'block';
+            });
+        }
+
+        handleAuthentication();
     </script>
 
 </body>
