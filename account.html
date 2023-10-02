@@ -15,6 +15,8 @@
         .topnav {
             overflow: hidden;
             background-color: #333;
+            display: flex;
+            justify-content: space-between;
         }
 
         .topnav a {
@@ -37,10 +39,17 @@
         }
 
         .account-info {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            display: none;
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            color: white;
+        }
+
+        .account-info img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 10px;
         }
 
     </style>
@@ -51,13 +60,13 @@
         <a class="active" href="Main.html">Home</a>
         <a href="store.html">Store</a>
         <a href="cart.html">Cart</a>
+        <div class="account-info" id="accountInfo" style="display:none;">
+            <img src="" alt="Profile Image">
+            <span id="username"></span>
+            <span id="email"></span>
+        </div>
         <a href="account.html">Account</a>
         <a href="about.html">About</a>
-    </div>
-
-    <div class="account-info" id="accountInfo">
-        <span id="username"></span>
-        <span id="email"></span>
     </div>
 
     <center>
@@ -69,73 +78,23 @@
     </center>
 
     <script>
-        var lock = new Auth0Lock('WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy', 'dev-yix8d58xfz2w0brw.us.auth0.com');
+        // (Your existing JavaScript code goes here)
 
-        function setAuthToken(token) {
-            localStorage.setItem('authToken', token);
-        }
-
-        function getAuthToken() {
-            return localStorage.getItem('authToken');
-        }
-
-        function clearAuthToken() {
-            localStorage.removeItem('authToken');
-        }
-
-        function handleAuthentication() {
-            lock.on("authenticated", function(authResult) {
-                setAuthToken(authResult.idToken);
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('signup').style.display = 'none';
-                document.getElementById('logout').style.display = 'block';
-                updateAccountInfo(authResult.idTokenPayload);
-            });
-        }
-
-        function checkLoggedIn() {
-            var authToken = getAuthToken();
-            if (authToken) {
-                document.getElementById('login').style.display = 'none';
-                document.getElementById('signup').style.display = 'none';
-                document.getElementById('logout').style.display = 'block';
-                var idTokenPayload = JSON.parse(atob(authToken.split('.')[1]));
-                updateAccountInfo(idTokenPayload);
-            }
-        }
-
+        // Function to update account info
         function updateAccountInfo(idTokenPayload) {
             var accountInfo = document.getElementById('accountInfo');
             var username = document.getElementById('username');
             var email = document.getElementById('email');
+            var profileImage = document.querySelector('.account-info img');
 
             username.textContent = 'Username: ' + idTokenPayload.nickname;
             email.textContent = 'Email: ' + idTokenPayload.email;
+            profileImage.src = idTokenPayload.picture;
 
-            accountInfo.style.display = 'block';
+            accountInfo.style.display = 'flex';
         }
 
-        document.getElementById('login').addEventListener('click', function() {
-            lock.show();
-        });
-
-        document.getElementById('signup').addEventListener('click', function() {
-            lock.show({
-                initialScreen: 'signUp'
-            });
-        });
-
-        document.getElementById('logout').addEventListener('click', function() {
-            console.log('Logout button clicked');
-            clearAuthToken();
-            lock.logout({
-                returnTo: 'https://m-t-curran.github.io/ID/account.html',
-                client_id: 'WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy' // Replace with your Auth0 client ID
-            });
-        });
-
-        handleAuthentication();
-        checkLoggedIn();
+        // (Continue with your existing JavaScript code)
     </script>
 
 </body>
