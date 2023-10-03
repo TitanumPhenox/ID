@@ -1,3 +1,5 @@
+ 
+account.html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>account</title>
     <script src="https://cdn.auth0.com/js/lock/11.32/lock.min.js"></script>
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fg&psig=AOvVaw3M2mFMhS3_7U_hBjXQ4w1u&ust=1695144676701000&source=images&cd=vfe&opi=89978449&ved=0CA0QjRxqFwoTCPjDxJPYtIEDFQAAAAAdAAAAABAD">
     <style>
         body {
           margin: 0;
@@ -15,6 +18,7 @@
           background-color: #333;
           position: relative; /* Make sure it's a positioned container */
         }
+
         .topnav a {
           float: left;
           color: #f2f2f2;
@@ -44,8 +48,6 @@
 
         .username-popup {
           position: absolute;
-          top: 40px;
-          right: 10px;
           top: 100%;
           right: 0;
           background-color: #f9f9f9;
@@ -62,20 +64,18 @@
   <a href="cart.html">Cart</a>
   <a href="account.html">Account</a>
   <a href="about.html">About</a>
-  <div id="user-icon-container" style="position: relative;">
+  <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
   <div id="user-icon-container">
     <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
-    <div class="username-popup" id="username-popup" style="background-color: #f9f9f9; padding: 8px 16px; border: 1px solid #ccc; display: none;"></div>
     <div class="username-popup" id="username-popup">Username/Email</div>
   </div>
 </div>
 <center>
-    <body>
+
     <h1>Login/Sign Up</h1>
     <button id="login">Log In</button>
     <button id="signup">Sign Up</button>
     <button id="logout" style="display:none;">Log Out</button>
-    </body>
     <script>
         var lock = new Auth0Lock('WwsTkXkvt6WsmKU2AvaZL7kASp5hoyHy', 'dev-yix8d58xfz2w0brw.us.auth0.com');
         function setAuthToken(token) {
@@ -94,8 +94,6 @@
                 document.getElementById('signup').style.display = 'none';
                 document.getElementById('logout').style.display = 'block';
                 document.getElementById('user-icon').style.display = 'block';
-                var username = authResult.idTokenPayload.email || authResult.idTokenPayload.nickname || "Username/Email";
-                document.getElementById('username-popup').textContent = username;
                 document.getElementById('username-popup').textContent = authResult.idTokenPayload.email || authResult.idTokenPayload.nickname || "Username/Email";
             });
         }
@@ -111,6 +109,7 @@
                 document.getElementById('username-popup').textContent = username;
             }
         }
+
         function getAuthTokenPayload() {
             var token = getAuthToken();
             if (token) {
@@ -119,9 +118,11 @@
                 var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
                     return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
                 }).join(''));
+
                 return JSON.parse(jsonPayload);
             }
         }
+
         document.getElementById('login').addEventListener('click', function() {
             lock.show();
         });
