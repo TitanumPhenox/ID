@@ -49,8 +49,8 @@
 
         .username-popup {
           position: absolute;
-          top: 100%;
-          right: 0;
+          top: calc(100% + 5px);
+          right: 10px;
           background-color: #f9f9f9;
           padding: 8px 16px;
           border: 1px solid #ccc;
@@ -68,7 +68,7 @@
   <a href="about.html">About</a>
   <div id="user-icon-container" style="position: relative;">
     <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
-    <div class="username-popup" id="username-popup" style="position: absolute; top: 100%; right: 0; background-color: #f9f9f9; padding: 8px 16px; border: 1px solid #ccc; display: none;">Username/Email</div>
+    <div class="username-popup" id="username-popup" style="background-color: #f9f9f9; padding: 8px 16px; border: 1px solid #ccc; display: none;"></div>
   </div>
 </div>
 <center>
@@ -101,7 +101,8 @@
                 document.getElementById('signup').style.display = 'none';
                 document.getElementById('logout').style.display = 'block';
                 document.getElementById('user-icon').style.display = 'block';
-                document.getElementById('username-popup').textContent = authResult.idTokenPayload.email || authResult.idTokenPayload.nickname || "Username/Email";
+                var username = authResult.idTokenPayload.email || authResult.idTokenPayload.nickname || "Username/Email";
+                document.getElementById('username-popup').textContent = username;
             });
         }
 
