@@ -1,89 +1,109 @@
 <!DOCTYPE html>
-<link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fg&psig=AOvVaw3M2mFMhS3_7U_hBjXQ4w1u&ust=1695144676701000&source=images&cd=vfe&opi=89978449&ved=0CA0QjRxqFwoTCPjDxJPYtIEDFQAAAAAdAAAAABAD">
-<title> Home </title>
-<html>
+<html lang="en">
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
- .topnav img {
-          width: 24px;
-          height: 24px;
-          display: none;
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          right: 5px; /* Adjust the right position as needed */
-          cursor: pointer; /* Add pointer cursor on hover */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fg&psig=AOvVaw3M2mFMhS3_7U_hBjXQ4w1u&ust=1695144676701000&source=images&cd=vfe&opi=89978449&ved=0CA0QjRxqFwoTCPjDxJPYtIEDFQAAAAAdAAAAABAD">
+    <title>Home</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
         }
-</style>
-</head>
-<body>
 
-<div class="topnav">
-  <a class="active" href="#Main.html">Home</a>
-  <a href="store.html">Store</a>
-  <a href="cart.html">Cart</a>
-  <a href="account.html">Account</a>
-  <a href="about.html">About</a>
-  <div id="user-icon-container">
-    <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
-  </div>
-</div>
-<center>
-  <style>
-  .highlighted-text {
-    background-color: #333333; /* Set the desired background color for the text */
-    padding: 10px; /* Add some padding for space around the text */
-    
-  }
-</style>
+        .topnav {
+            overflow: hidden;
+            background-color: #333333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2;
+        }
 
- 
-<div class="highlighted-text">
-  <h2 style="color:GhostWhite; font-size:200%;">Ignite Industrial Design Website template.</h2>
-  
-  </div>
-   <div> 
-    <center>
-      <img src="https://th.bing.com/th?id=OIP.aSkfrLFfMgXdgS_qMvmSeAHaC4&w=349&h=136&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="Ignite Logo"></img>
-    </center>
-  </div>
-  <p>This is a test template</p>
+        .topnav .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #333333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
 
-</center>
+        .topnav .openbtn:hover {
+            background-color: #0000;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #333333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #afabab;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+            }
+        }
 
 
-  <style>
+
+        .topnav img {
+            width: 24px;
+            height: 24px;
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5px;
+            cursor: pointer;
+        }
+
+        .highlighted-text {
+            background-color: #333333;
+            padding: 10px;
+        }
+
         .bottom-text {
-            position: fixed; 
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
@@ -92,17 +112,54 @@ body {
             padding: 10px;
         }
     </style>
+</head>
 
-  
-</body>
-<footer>
-  <center>
+<body>
+<div class="topnav">
+    <button class="openbtn" onclick="toggleNav()">☰</button>
+    <div id="user-icon-container">
+        <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
+    </div>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
+        <a href="Main.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="cart.html">Cart</a>
+        <a href="account.html">Account</a>
+        <a href="about.html">About</a>
+    </div>
+
+    <center>
+        <div class="highlighted-text">
+            <h2 style="color:GhostWhite; font-size:200%;">Ignite Industrial Design Website template.</h2>
+        </div>
+        <div>
+            <center>
+                <img src="https://th.bing.com/th?id=OIP.aSkfrLFfMgXdgS_qMvmSeAHaC4&w=349&h=136&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="Ignite Logo">
+            </center>
+        </div>
+
+    </center>
+
     <div class="bottom-text">
-     <p style="font-size:50%"> This site uses cookies to insure the best user experience. By continuing you consent to all cookie use.</p>
-      </div>
-  </center>
- 
-</footer>
+        <p style="font-size:50%"> This site uses cookies to ensure the best user experience. By continuing, you consent to all cookie use.</p>
+    </div>
+</div>
 
+<script>
+    function toggleNav() {
+        var sidebar = document.getElementById("mySidebar");
+        var mainContent = document.getElementById("main");
+
+        if (sidebar.style.width === "250px") {
+            sidebar.style.width = "0";
+            mainContent.style.marginLeft = "0";
+        } else {
+            sidebar.style.width = "250px";
+            mainContent.style.marginLeft = "250px";
+        }
+    }
+</script>
+</body>
 
 </html>
