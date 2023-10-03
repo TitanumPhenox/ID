@@ -1,132 +1,125 @@
 <!DOCTYPE html>
-<link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fg&psig=AOvVaw3M2mFMhS3_7U_hBjXQ4w1u&ust=1695144676701000&source=images&cd=vfe&opi=89978449&ved=0CA0QjRxqFwoTCPjDxJPYtIEDFQAAAAAdAAAAABAD">
-<title> Cart </title>
-<html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-.topnav {
-  overflow: hidden;
-  background-color: #333;
-}
-.topnav a {
-  float: left;
-  color: #f2f2f2;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
-}
-.topnav a:hover {
-  background-color: #ddd;
-  color: black;
-}
-.topnav a.active {
-  background-color: #04AA6D;
-  color: white;
-}
-</style>
-</head>
-<body>
-<div class="topnav">
-  <a class="active" href="Main.html">Home</a>
-  <a href="store.html">Store</a>
-  <a href="cart.html">Cart</a>
-  <a href="account.html">Account</a>
-  <a href="about.html">About</a>
-</div>
-<center>
-<style>
-  .highlighted-text {
-    background-color: #333333; /* Set the desired background color for the text */
-    padding: 10px; /* Add some padding for space around the text */
-    
-  }
-</style>
-</head>
-<body>
-<center> 
-  <div class="highlighted-text">
-    <h1 style="color:GhostWhite;"> Your Cart:</h1>
-    
-  </div>
-</center>
-   <div class="container">
-        <h2>Shopping Cart</h2>
-        <ul id="cart"></ul>
-        <p>Total: <span id="total">0.00</span></p>
-    </div>
-       <script>
-        let cart = [];
-        let total = 0;
-        // Function to set a cookie
-        function setCookie(name, value, expires, path) {
-            document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=${path}`;
-        }
-        // Function to get a cookie by name
-        function getCookie(name) {
-            const cookies = document.cookie.split("; ");
-            for (const cookie of cookies) {
-                const [cookieName, cookieValue] = cookie.split("=");
-                if (cookieName === name) {
-                    return decodeURIComponent(cookieValue);
-                }
-            }
-            return null;
-        }
-        // Function to update the cart display
-        function updateCart() {
-            const cartList = document.getElementById("cart");
-            const totalElement = document.getElementById("total");
-            cartList.innerHTML = "";
-            cart.forEach(item => {
-                const li = document.createElement("li");
-                li.innerText = `${item.productName} - $${item.price.toFixed(2)}`;
-                cartList.appendChild(li);
-            });
-            totalElement.innerText = total.toFixed(2);
-            // Save cart and total in cookies
-            setCookie("cart", JSON.stringify(cart), "Thu, 18 Dec 2023 12:00:00 UTC", "/");
-            setCookie("total", total, "Thu, 18 Dec 2023 12:00:00 UTC", "/");
-        }
-        // Function to add an item to the cart
-        function addToCart(productName, price) {
-            cart.push({ productName, price });
-            total += price;
-            updateCart();
-        }
-        // Function to retrieve cart data from cookies on page load
-        function retrieveCartFromCookies() {
-            const savedCart = getCookie("cart");
-            const savedTotal = getCookie("total");
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-            }
-            if (savedTotal) {
-                total = parseFloat(savedTotal);
-            }
-            updateCart();
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fg&psig=AOvVaw3M2mFMhS3_7U_hBjXQ4w1u&ust=1695144676701000&source=images&cd=vfe&opi=89978449&ved=0CA0QjRxqFwoTCPjDxJPYtIEDFQAAAAAdAAAAABAD">
+    <title>Cart</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
         }
 
-        // Call the function to retrieve cart data from cookies on page load
-        retrieveCartFromCookies();
-         function remove_cart(){
-           cart = [];
-           total = 0;
-           updateCart();
-         }
-    </script>
+        .topnav {
+            overflow: hidden;
+            background-color: #333333;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 2;
+        }
 
-<p><button onclick="remove_cart()" type="button">Clear Basket</button></p>
-</body>
+        .topnav .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #333333;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
 
-  <style>
+        .topnav .openbtn:hover {
+            background-color: #0000;
+        }
+
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            background-color: #333333;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+
+        .sidebar a {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 25px;
+            color: #afabab;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .sidebar a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidebar .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+            margin-left: 50px;
+        }
+
+        #main {
+            transition: margin-left .5s;
+            padding: 16px;
+            margin-left: 0;
+            padding-right: 250px;
+        }
+
+        @media screen and (max-height: 450px) {
+            .sidebar {
+                padding-top: 15px;
+            }
+
+            .sidebar a {
+                font-size: 18px;
+            }
+
+            #main {
+                padding-right: 0;
+            }
+        }
+
+        .topnav img {
+            width: 24px;
+            height: 24px;
+            display: none;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 5px;
+            cursor: pointer;
+        }
+
+        .highlighted-text {
+            background-color: #333333;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            color: black;
+        }
+
+        /* Add the following style to remove bullets */
+        #cart {
+            list-style-type: none;
+            padding: 0;
+        }
+
         .bottom-text {
-            position: fixed; 
+            position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
@@ -135,8 +128,141 @@ body {
             padding: 10px;
         }
     </style>
+</head>
 
-  
+<body>
+<div class="topnav">
+    <button class="openbtn" onclick="toggleNav()">☰</button>
+    <div id="user-icon-container">
+        <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
+    </div>
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
+        <a href="Main.html">Home</a>
+        <a href="store.html">Store</a>
+        <a href="cart.html">Cart</a>
+        <a href="account.html">Account</a>
+        <a href="about.html">About</a>
+    </div>
+</div>
 
+<center>
+    <div class="highlighted-text">
+        <h1 style="color:GhostWhite;"> Your Cart:</h1>
+    </div>
+</center>
+<center>
+<div class="container">
+    <h2>Shopping Cart</h2>
+    <ul id="cart"></ul>
+    <p>Total: <span id="total">0.00</span></p>
+</div>
+</center>
+<script>
+    let cart = [];
+    let total = 0;
+
+    function setCookie(name, value, expires, path) {
+        document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=${path}`;
+    }
+
+    function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (const cookie of cookies) {
+            const [cookieName, cookieValue] = cookie.split("=");
+            if (cookieName === name) {
+                return decodeURIComponent(cookieValue);
+            }
+        }
+        return null;
+    }
+
+    function updateCart() {
+        const cartList = document.getElementById("cart");
+        const totalElement = document.getElementById("total");
+
+        cartList.innerHTML = "";
+        cart.forEach(item => {
+            const li = document.createElement("li");
+            li.innerText = `${item.productName} - $${item.price.toFixed(2)}`;
+            cartList.appendChild(li);
+        });
+
+        totalElement.innerText = total.toFixed(2);
+
+        setCookie("cart", JSON.stringify(cart), "Thu, 18 Dec 2023 12:00:00 UTC", "/");
+        setCookie("total", total, "Thu, 18 Dec 2023 12:00:00 UTC", "/");
+    }
+
+    function addToCart(productName, price) {
+        cart.push({ productName, price });
+        total += price;
+        updateCart();
+    }
+
+    function retrieveCartFromCookies() {
+        const savedCart = getCookie("cart");
+        const savedTotal = getCookie("total");
+
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+        }
+
+        if (savedTotal) {
+            total = parseFloat(savedTotal);
+        }
+
+        updateCart();
+    }
+
+    retrieveCartFromCookies();
+
+    function remove_cart() {
+        cart = [];
+        total = 0;
+        updateCart();
+    }
+</script>
+
+<center><p><button onclick="remove_cart()" type="button">Clear Basket    </button></p></center>
+
+<style>
+    .bottom-text {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: #f8f8f8;
+        text-align: center;
+        padding: 10px;
+    }
+</style>
+
+<footer>
+    <center>
+        <div class="bottom-text">
+            <p style="font-size:50%"> This site uses cookies to ensure the best user experience. By continuing, you consent to all cookie use.</p>
+        </div>
+    </center>
+</footer>
+
+<script>
+    // Your existing script goes here
+
+    // Add any additional scripts if needed
+
+    // Function to toggle the sidebar
+    function toggleNav() {
+        const sidebar = document.getElementById("mySidebar");
+        if (sidebar.style.width === "250px") {
+            sidebar.style.width = "0";
+        } else {
+            sidebar.style.width = "250px";
+        }
+    }
+</script>
+
+</body>
 
 </html>
+
