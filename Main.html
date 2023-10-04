@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>About</title>
     <link rel="icon" href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wiktionary.org%2Fwiki%2Fg&psig=AOvVaw3M2mFMhS3_7U_hBjXQ4w1u&ust=1695144676701000&source=images&cd=vfe&opi=89978449&ved=0CA0QjRxqFwoTCPjDxJPYtIEDFQAAAAAdAAAAABAD">
-    <title>Home</title>
     <style>
         body {
             margin: 0;
@@ -19,6 +19,10 @@
             top: 0;
             width: 100%;
             z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
         }
 
         .topnav .openbtn {
@@ -26,8 +30,8 @@
             cursor: pointer;
             background-color: #333333;
             color: white;
-            padding: 10px 15px;
             border: none;
+            padding: 10px 15px;
         }
 
         .topnav .openbtn:hover {
@@ -84,8 +88,6 @@
             }
         }
 
-
-
         .topnav img {
             width: 24px;
             height: 24px;
@@ -97,9 +99,18 @@
             cursor: pointer;
         }
 
+        .topnav .about-link {
+            font-size: 20px;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+        }
+
         .highlighted-text {
             background-color: #333333;
             padding: 10px;
+            margin-top: 50px;
+            text-align: center;
         }
 
         .bottom-text {
@@ -111,6 +122,15 @@
             text-align: center;
             padding: 10px;
         }
+
+        .logo {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+        }
     </style>
 </head>
 
@@ -120,31 +140,39 @@
     <div id="user-icon-container">
         <img id="user-icon" src="https://th.bing.com/th?id=OIP.A-cmeHyfmBpJVPUhqAQkrwAAAA&w=212&h=212&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="User Icon">
     </div>
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
-        <a href="Main.html">Home</a>
-        <a href="store.html">Store</a>
-        <a href="cart.html">Cart</a>
-        <a href="account.html">Account</a>
-        <a href="about.html">About</a>
-    </div>
-
-    <center>
-        <div class="highlighted-text">
-            <h2 style="color:GhostWhite; font-size:200%;">Ignite Industrial Design Website template.</h2>
-        </div>
-        <div>
-            <center>
-                <img src="https://th.bing.com/th?id=OIP.aSkfrLFfMgXdgS_qMvmSeAHaC4&w=349&h=136&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="Ignite Logo">
-            </center>
-        </div>
-
-    </center>
-
-    <div class="bottom-text">
-        <p style="font-size:50%"> This site uses cookies to ensure the best user experience. By continuing, you consent to all cookie use.</p>
-    </div>
+    <h2 style=" color:#333333;">About:</h2>
 </div>
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="toggleNav()">×</a>
+    <a href="Main.html">Home</a>
+    <a href="store.html">Store</a>
+    <a href="cart.html">Cart</a>
+    <a href="account.html">Account</a>
+    <a href="about.html">About</a>
+</div>
+
+<div class="highlighted-text">
+    <h1 style="font-size:200%; color:GhostWhite;">Ignite Industrial Design Website Template.</h1>
+</div>
+
+<center>
+    <p style="font-size:125%">This is a test template built for the Ignite strand Industrial Design</p>
+</center>
+
+<div class="logo">
+    <center>
+        <img src="https://th.bing.com/th?id=OIP.aSkfrLFfMgXdgS_qMvmSeAHaC4&w=349&h=136&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2" alt="Ignite Logo">
+    </center>
+</div>
+
+<footer>
+    <center>
+        <div class="bottom-text">
+            <p style="font-size:50%">This site uses cookies to ensure the best user experience. By continuing,</p>
+        </div>
+    </center>
+</footer>
 
 <script>
     function toggleNav() {
